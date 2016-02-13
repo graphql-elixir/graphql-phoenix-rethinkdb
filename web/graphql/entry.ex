@@ -9,6 +9,7 @@ defmodule App.PublicSchema do
         name: "PublicQueries",
         fields: %{
           authors: App.Query.Authors.get,
+          comments: App.Query.Comments.get,
         }
       },
 
