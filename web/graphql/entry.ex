@@ -8,7 +8,7 @@ defmodule App.PublicSchema do
       query: %GraphQL.Type.ObjectType{
         name: "PublicQueries",
         fields: %{
-          greeting: App.Query.Greeting.get,
+          authors: App.Query.Authors.get,
         }
       },
 
