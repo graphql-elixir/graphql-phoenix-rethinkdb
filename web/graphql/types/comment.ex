@@ -9,6 +9,7 @@ defmodule App.Type.Comment do
         id: @type_string,
         text: @type_string,
         post_id: @type_string,
+        author_id: @type_string,
         author: %{
           type: App.Type.Author.get,
           resolve: fn (_doc, _args, _) ->
