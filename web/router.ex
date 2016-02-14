@@ -16,6 +16,7 @@ defmodule App.Router do
   scope "/", App do
     pipe_through :browser
     get "/", PageController, :index
+    get "/reset", PageController, :reset_db
   end
 
   scope "/graphql" do

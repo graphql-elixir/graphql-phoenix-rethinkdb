@@ -1,5 +1,13 @@
 <div class="jumbotron">
   <h2><%= gettext "Welcome to GraphQL Phoenix!" %></h2>
-  <p class="lead">Try out GraphiQL: <a href="http://localhost:4000/graphql">Click Here</a></p>
+  <p class="lead"></p>
+  <p class="lead">
+    <span>
+      Seed/Reset RethinkDB: <a href="http://localhost:4000/reset">Click Here</a>
+    </span>
+    <br>
+    <span>
+      Try out GraphiQL: <a href="http://localhost:4000/graphql">Click Here</a></p>
+    </span>
 </div>
 
