@@ -34,6 +34,7 @@ defmodule App.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:plug_graphql, "~> 0.1.5"},
+     {:rethinkdb, "~> 0.3.2"},
    ]
   end
 end
