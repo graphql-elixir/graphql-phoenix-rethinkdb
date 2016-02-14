@@ -14,16 +14,16 @@ defmodule App.PageController do
     insert_author(%{id: "a3", name: "Leah Smith"})
 
     for i <- ["1", "2", "3", "4", "5"] do
-      author_id = "a#{:random.uniform(3)}"
       insert_post(%{
         id: "p#{i}",
         title: "Post Number #{i}",
         content: "#{i} How now brown cow",
-        author_id: author_id
+        author_id: "a#{:random.uniform(3)}"
       })
       insert_comment(%{
         id: "c#{i}",
         post_id: "p#{i}",
+        author_id: "a#{:random.uniform(3)}",
         text: "Test comment #{i}"
       })
     end
