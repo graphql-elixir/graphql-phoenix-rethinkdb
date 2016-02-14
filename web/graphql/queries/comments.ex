@@ -1,11 +1,14 @@
 alias GraphQL.Type.List
+import RethinkDB.Query, only: [table: 1]
 
 defmodule App.Query.Comments do
   def get do
     %{
       type: %List{ofType: App.Type.Comment.get},
       resolve: fn (_, _args, _) ->
-        [ %{id: "c1", text: "Hello", postId: "p1", authorId: "a1"} ]
+        table("comments")
+        |> DB.run
+        |> DB.handle_graphql_resp
       end
     }
   end

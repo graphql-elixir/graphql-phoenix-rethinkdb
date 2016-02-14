@@ -1,3 +1,5 @@
+import RethinkDB.Query, only: [table: 1, get: 2]
+
 defmodule App.Type.Comment do
   @type_string %{type: %GraphQL.Type.String{}}
 
@@ -12,9 +14,11 @@ defmodule App.Type.Comment do
         author_id: @type_string,
         author: %{
           type: App.Type.Author.get,
-          resolve: fn (_doc, _args, _) ->
-            # hard coded for now would query by doc.author_id
-            %{id: "323", name: "Jim Smith"}
+          resolve: fn (doc, _args, _) ->
+            table("authors")
+            |> get(doc.author_id)
+            |> DB.run
+            |> DB.handle_graphql_resp
           end
         }
       }

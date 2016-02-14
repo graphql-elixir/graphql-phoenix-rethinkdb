@@ -1,4 +1,5 @@
 alias GraphQL.Type.List
+import RethinkDB.Query, only: [table: 1, get: 2, filter: 2]
 
 defmodule App.Type.Post do
   @type_string %{type: %GraphQL.Type.String{}}
@@ -12,30 +13,24 @@ defmodule App.Type.Post do
         content: @type_string,
         author: %{
           type: App.Type.Author.get,
-          resolve: fn (_doc, _args, _) ->
-            get_fake_author()
+          resolve: fn (doc, _args, _) ->
+            table("authors")
+            |> get(doc.author_id)
+            |> DB.run
+            |> DB.handle_graphql_resp
           end
         },
         comments: %{
           type: %List{ofType: App.Type.Comment.get},
-          resolve: fn (_doc, _args, _) ->
-            get_fake_comments()
+          resolve: fn (doc, _args, _) ->
+            # note, using get_all with index is faster than filter
+            table("comments")
+            |> filter(%{post_id: doc.id})
+            |> DB.run
+            |> DB.handle_graphql_resp
           end
         }
       }
     }
-  end
-
-  # temp
-
-  defp get_fake_comments do
-    # hard coded for now, would find comments by post id
-    [ %{id: "c1", text: "First comment", postId: "p1", authorId: "a1"},
-      %{id: "c2", text: "Second comment", postId: "p1", authorId: "a1"} ]
-  end
-
-  defp get_fake_author do
-    # hard coded for now would, query by author id
-    %{id: "a1", name: "Allen Jones"}
   end
 end
